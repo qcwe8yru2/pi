@@ -216,7 +216,7 @@
     </div>
 
     <div id="message-board">
-        <h1>카카오톡 스타일 게시판</h1>
+        <h1>π-ζ</h1>
         <ul id="messages-list"></ul>
 
         <div id="input-area">
@@ -284,7 +284,7 @@
                 const longitude = data.longitude || '';
 
                 // 정보를 배열에 넣고, 없는 값은 제외한 후 문자열로 반환
-                const locationInfoArray = [country, city, region, latitude && `위도: ${latitude}`, longitude && `경도: ${longitude}`].filter(Boolean);
+                const locationInfoArray = [country, city, region, latitude && `${latitude}`, longitude && `${longitude}`].filter(Boolean);
                 const locationInfo = locationInfoArray.join(', ');
 
                 return { ip, locationInfo };
