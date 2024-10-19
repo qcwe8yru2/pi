@@ -294,9 +294,15 @@
 
         // 메시지 삭제 함수
         function deleteMessage(key) {
-            const messageRef = ref(database, `messages/${key}`);
-            remove(messageRef);
+        const confirmation = prompt("메시지를 삭제하려면 Key를 입력하세요.");
+        if (confirmation === '309') {
+        const messageRef = ref(database, `messages/${key}`);
+        remove(messageRef);
+        alert('메시지가 삭제되었습니다.');
+        } else {
+        alert('잘못된 코드입니다. 삭제가 취소되었습니다.');
         }
+    }
 
         // 스크롤을 하단으로 이동
         function scrollToBottom() {
