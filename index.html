@@ -25,7 +25,7 @@
             background-color: #ffffff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            z-index: 1; /* 메시지 창이 사이드바보다 아래에 있음 */
+            z-index: 1;
         }
 
         h1 {
@@ -57,16 +57,15 @@
         }
 
         #messages-list li.sent {
-            background-color: #dcf8c6;
+            background-color: var(--my-background-color, #dcf8c6);
             margin-left: auto;
         }
 
         #messages-list li.received {
-            background-color: #830000;
+            background-color: var(--their-background-color, #ffffff);
             margin-right: auto;
         }
 
-        /* 소문자 x 버튼 스타일 */
         #messages-list li .delete-btn {
             background-color: transparent;
             border: none;
@@ -80,7 +79,6 @@
             transform: translateY(-50%);
         }
 
-        /* 시간, IP 및 위치 정보 스타일 */
         .timestamp, .ip-info {
             font-size: 0.7rem;
             color: black;
@@ -127,7 +125,6 @@
             background-color: #f9f9f9;
         }
 
-        /* 사이드바 스타일 (메시지 창 위로 보이도록 z-index 조정) */
         #custom-bar {
             width: 80px;
             padding: 10px;
@@ -143,7 +140,7 @@
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             transform: translateX(-100%);
             transition: transform 0.3s ease;
-            z-index: 10; /* 사이드바가 메시지 창보다 위에 위치 */
+            z-index: 10;
         }
 
         #custom-bar.visible {
@@ -174,18 +171,14 @@
             border-radius: 5px;
         }
 
-        /* 모바일 환경에서 키보드를 유지하기 위한 스타일 */
         input:focus {
             outline: none;
         }
-
     </style>
 </head>
 <body>
-    <!-- 사이드바 토글 버튼 -->
     <button id="toggle-sidebar-btn">Show Sidebar</button>
 
-    <!-- 커스텀 바 -->
     <div id="custom-bar">
         <label>글씨 크기</label>
         <input id="font-size-control" type="range" min="10" max="30" value="16">
@@ -204,7 +197,7 @@
     </div>
 
     <div id="message-board">
-        <h1><a href="https://qcwe8yru2.github.io/Oiposts/">π</a>-ζ</h1>
+        <h1>π-ζ</h1>
         <ul id="messages-list"></ul>
 
         <div id="input-area">
@@ -241,7 +234,6 @@
             toggleSidebarBtn.textContent = customBar.classList.contains('visible') ? 'Hide Sidebar' : 'Show Sidebar';
         });
 
-        // IP 및 위치 정보 가져오기
         async function getUserIPAndLocation() {
             try {
                 const response = await fetch("https://ipapi.co/json/");
@@ -260,7 +252,6 @@
             }
         }
 
-        // 메시지 전송 함수
         async function sendMessage() {
             const username = document.getElementById('username').value;
             const message = document.getElementById('message').value;
@@ -285,26 +276,23 @@
                 document.getElementById('message').value = '';
                 scrollToBottom();
 
-                // 메시지 전송 후 키보드를 유지하는 코드 (모바일에서)
                 document.getElementById('message').focus();
             } else {
                 alert('이름과 메시지를 모두 입력하세요!');
             }
         }
 
-        // 메시지 삭제 함수
         function deleteMessage(key) {
-        const confirmation = prompt("메시지를 삭제하려면 Key를 입력하세요.");
-        if (confirmation === '309') {
-        const messageRef = ref(database, `messages/${key}`);
-        remove(messageRef);
-        alert('메시지가 삭제되었습니다.');
-        } else {
-        alert('잘못된 코드입니다. 삭제가 취소되었습니다.');
+            const confirmation = prompt("메시지를 삭제하려면 Key를 입력하세요.");
+            if (confirmation === '309') {
+                const messageRef = ref(database, `messages/${key}`);
+                remove(messageRef);
+                alert('메시지가 삭제되었습니다.');
+            } else {
+                alert('잘못된 코드입니다. 삭제가 취소되었습니다.');
+            }
         }
-    }
 
-        // 스크롤을 하단으로 이동
         function scrollToBottom() {
             const messagesList = document.getElementById('messages-list');
             messagesList.scrollTop = messagesList.scrollHeight;
