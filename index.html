@@ -22,7 +22,7 @@
             right: 20px; /* 오른쪽에서 간격 조정 */
             width: 50px; /* 모바일 화면에서는 더 작은 크기 */
         }
-    }
+    }	    
 
         body {
             font-family: 'Arial', sans-serif;
@@ -224,9 +224,7 @@
             {file: 'refuse2.ogg', probability: 0.3},
 	{file: 'hurt.mp3'}
         ];
-        const container = document.getElementById('image-container');
-        const overlay = document.getElementById('overlay');
-
+	
         img.addEventListener("click", function() { 
             img.src = "refusing.webp"; 
             
@@ -247,6 +245,12 @@
             }, 1560);
 
         });
+
+	img.addEventListener("contextmenu", function(event) {
+	event.preventDefault();  
+	const audio=new Audio(sounds[2].file);
+	audio.play();
+	});
     </script>
 
 
